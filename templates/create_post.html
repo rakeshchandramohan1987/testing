@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
+            <div class="form-group">
+                {{ form.title.label(class="form-control-label") }}
+                {% if form.title.errors %}
+                {{ form.title(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.title(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+
+        </fieldset>
+        <div class="form-group">
+            {{ form.content.label(class="form-control-label") }}
+            <textarea id="content" name="content" ></textarea>
+            <script>
+                $(document).ready(function() {
+                    $('#content').summernote();
+                });
+            </script>
+        </div>
+        <fieldset class="form-group">
+        <div class="form-group">
+                {{ form.tagname.label(class="form-control-label") }}
+                {% if form.tagname.errors %}
+                {{ form.tagname(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.tagname.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.tagname(class="form-control form-control-lg") }}
+                {% endif %}
+            <a>Please use comma to separate tags.</a>
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+
+</div>
+
+{% endblock content %}
