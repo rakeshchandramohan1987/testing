@@ -1,28 +1,9 @@
-_author_ = 'Rakesh Chandramohan'
+from forms import MainForm
 
-from flask import render_template, request, Blueprint
-from Glob.models import Post
+class MainRoutes:
+    def __init__(self):
+        self.form = MainForm()
 
-from sqlalchemy import cast, func, asc, desc
-#import flask_whooshalchemy as wa
-
-main = Blueprint('main', __name__)
-
-@main.route("/")
-@main.route("/home")
-def home():
-    # results = Post.query.order_by().desc()
-    posts = Post.query.order_by(desc(Post.date_posted))
-    tagdict = {}
-    for post in posts:
-        strtags = str(post.tags)
-        if strtags == "None":
-            strtags = ""
-        tagdict[post.id] = strtags.split(',')
-
-    return render_template('home.html', posts=posts, tagdict=tagdict)
-
-
-@main.route("/about")
-def about():
-    return render_template('about.html', title='About')
+if __name__ == "__main__":
+    from main.routes import MainRoutes 
+    MainRoutes() 
